@@ -19,23 +19,35 @@
   "devDependencies": {
     "@types/estree": "^1.0.6",
     "@types/react": "^18.3.10",
-    "@bcirealm087/better-fetching": "github:BCIrealm087/better-fetching",
-    "@bcirealm087/use-dynamic-css": "github:BCIrealm087/use-dynamic-css",
     "css-loader": "^7.1.2",
     "file-loader": "^6.2.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.6.2",
     "webpack": "^5.95.0",
-    "webpack-cli": "^5.1.4"
-  },
-  "dependencies": {
+    "webpack-cli": "^5.1.4", 
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^6.1.1",
     "@preact/signals-react": "^2.2.0",
+    "@bcirealm087/better-fetching": "github:BCIrealm087/better-fetching",
+    "@bcirealm087/use-dynamic-css": "github:BCIrealm087/use-dynamic-css",
     "http-status-codes": "^2.3.0",
+    "react-json-view-lite": "^1.5.0", 
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-json-view-lite": "^1.5.0"
+    "react-dom": "^18.3.1"
+  },
+  "bundledDependencies": [
+    "@emotion/react",
+    "@emotion/styled",
+    "@mui/material",
+    "@preact/signals-react",
+    "@bcirealm087/better-fetching",
+    "@bcirealm087/use-dynamic-css",
+    "http-status-codes",
+    "react-json-view-lite"
+  ], 
+  "peerDependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }
