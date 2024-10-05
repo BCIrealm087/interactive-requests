@@ -53,7 +53,7 @@ const fetchWithRetries = <T,>(baseURL: string, endpointURL: string = '', retries
       } else throw error;
       return (new Promise(resolve=>setTimeout(resolve, 500))
         .then(()=>fetchWithRetries(baseURL, endpointURL, retries-1, waitingMessageState, 
-          `Falha na requisição, ${retries} tentativas restantes...`)));
+          `Falha na requisição, ${retries} ${(retries !== 1) ? 'tentativas restantes' : 'tentativa restante'}...`)));
     });
 };
 

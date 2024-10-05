@@ -19,6 +19,8 @@
   "devDependencies": {
     "@types/estree": "^1.0.6",
     "@types/react": "^18.3.10",
+    "@bcirealm087/better-fetching": "github:BCIrealm087/better-fetching",
+    "@bcirealm087/use-dynamic-css": "github:BCIrealm087/use-dynamic-css",
     "css-loader": "^7.1.2",
     "file-loader": "^6.2.0",
     "ts-loader": "^9.5.1",
@@ -27,8 +29,6 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@bcirealm087/better-fetching": "github:BCIrealm087/better-fetching",
-    "@bcirealm087/use-dynamic-css": "github:BCIrealm087/use-dynamic-css",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^6.1.1",

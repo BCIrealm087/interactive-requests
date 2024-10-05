@@ -22,7 +22,7 @@ export const ResponseArea = ({ responseHistoryState, selectedRequestState,
 
   const selectedRequestInfo = responseHistoryState.value[selectedRequestState.value];
 
-  if (!selectedRequestInfo || (disabledState && disabledState.value))
+  if (disabledState && disabledState.value)
     return null;
   
   const waitingInfo = (!waitingState.value) ? {
@@ -32,16 +32,22 @@ export const ResponseArea = ({ responseHistoryState, selectedRequestState,
     waitingMessage: waitingMessageState.value
   } as const;
 
-  return ( (selectedRequestInfo.error) 
+  const [error, data] = (selectedRequestInfo) 
+    ? ( (selectedRequestInfo.error) 
+          ? [selectedRequestInfo.error, null] as const
+          : [null, selectedRequestInfo.data || null] as const
+      )
+    : [null, null] as const;
+  return ( (error) 
     ? <ResponseDisplay
         waitingInfo = { waitingInfo }
-        requestErrorInfo={ selectedRequestInfo.error }
+        requestErrorInfo={ error }
         displayAreaRefState={ displayAreaRefState } 
         DisplaySuspenseComponent={ DisplaySuspenseComponent }
         cssURL={ cssURL }
       />  
     : <ResponseDisplay
-        data={ (selectedRequestInfo.data) || null }
+        data={ data }
         waitingInfo = { waitingInfo }
         displayAreaRefState={ displayAreaRefState }
         DisplaySuspenseComponent={ DisplaySuspenseComponent }
