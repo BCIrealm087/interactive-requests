@@ -1,12 +1,10 @@
 const path = require('path');
 
-const cssFiles = {};
-
 module.exports = {
-  entry: './index.ts', // Your entry file
+  entry: './index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js', // The main file that users will import
+    filename: 'index.js',
     libraryTarget: 'umd',
     globalObject: 'this',
     clean: true,
@@ -23,34 +21,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        type: 'asset/resource',
-        generator: {
-          filename: (pathData) => {
-            const { module } = pathData;
-            const issuer = module.issuer;
-        
-            if (issuer && issuer.resource) {
-              const relativeIssuerPath = path.relative(
-                path.resolve(__dirname, 'src'),
-                issuer.resource
-              );
-              const issuerDir = path.dirname(relativeIssuerPath);
-              const issuerName = path.parse(path.basename(relativeIssuerPath)).name;
-              const entry = issuerDir+issuerName;
-
-              if (!(entry in cssFiles))
-                cssFiles[entry] = 0;
-
-              const output = `css/${issuerDir}/${issuerName}.${cssFiles[entry]}[ext]`;
-              if (module.buildInfo.fullContentHash)
-                cssFiles[entry]+=1;
-
-              return output;
-            }
-        
-            return 'css/[contenthash][ext]';
-          },
-        },
+        use: 'raw-loader',
       },
     ],
   },

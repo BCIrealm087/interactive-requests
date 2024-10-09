@@ -1,24 +1,35 @@
 import { Box, Paper, Typography } from '@mui/material';
 
-import { JsonView, collapseAllNested } from 'react-json-view-lite';
+import { JsonView, Props as JsonViewProps, collapseAllNested } from 'react-json-view-lite';
 
 import React from 'react';
 import { Signal } from '@preact/signals-react';
 
-import { useDynamicCSS } from '@bcirealm087/use-dynamic-css';
+import styled, { css } from 'styled-components';
+import jsonViewCSS from 'react-json-view-lite/dist/index.css'; //import the css rules as a string
+
+
+const JsonViewStyled = styled(
+  (props : JsonViewProps & { className?: string }) => {
+    const { className, ...otherProps} = props;
+    return (
+      <div className={ props.className } >
+        <JsonView { ...otherProps } />
+      </div>
+    );
+  }
+)`
+  ${css`${jsonViewCSS}`} 
+`;
 
 export const ResponseDisplay = ({ data = null, 
     waitingInfo, 
     requestErrorInfo = null, 
-    displayAreaRefState, 
-    DisplaySuspenseComponent, 
-    cssURL = '../css/ResponseArea/index.0.css'
+    displayAreaRefState
   } : { data?: object|null, 
     waitingInfo: { waitingForResponse: true, waitingMessage: string } | { waitingForResponse: false }, 
     requestErrorInfo?: { message: string, json: object|null }|null, 
-    displayAreaRefState?: Signal<HTMLDivElement|null>, 
-    DisplaySuspenseComponent: React.ComponentType
-    cssURL?: string
+    displayAreaRefState?: Signal<HTMLDivElement|null>
   }) => 
 {
   const displayAreaRef = React.useRef<HTMLDivElement>(null);
@@ -27,8 +38,6 @@ export const ResponseDisplay = ({ data = null,
     if(displayAreaRefState && displayAreaRef.current)
       displayAreaRefState.value = displayAreaRef.current;
   }, []);
-
-  const cssLoaded = useDynamicCSS(cssURL);
 
   return (
     <Box
@@ -42,12 +51,7 @@ export const ResponseDisplay = ({ data = null,
                   Dados coletados
                 </Typography>
                 <Paper elevation={3} >
-                  { (cssLoaded) 
-                    ? <JsonView data={data} shouldExpandNode={collapseAllNested}/>
-                    : <Box p={ '1.5em' }>
-                        <DisplaySuspenseComponent /> 
-                      </Box> 
-                  }
+                    <JsonViewStyled data={data} shouldExpandNode={collapseAllNested}/>
                 </Paper>
               </Box> 
             : null
@@ -57,13 +61,8 @@ export const ResponseDisplay = ({ data = null,
                 { requestErrorInfo.message }
               </Typography>
               { (requestErrorInfo.json)  
-                ? ( (cssLoaded)
-                    ? <JsonView data={requestErrorInfo.json} />
-                    : <Box marginLeft={ '0.5em' }>
-                        <DisplaySuspenseComponent /> 
-                      </Box> 
-                  )
-                : null
+                  ? <JsonView data={requestErrorInfo.json} />
+                  : null
               }
             </Box>
           )  

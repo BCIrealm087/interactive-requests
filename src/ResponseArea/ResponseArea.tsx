@@ -5,19 +5,14 @@ import { Signal } from "@preact/signals-react";
 
 import { ResponseHistory } from "./types-ResponseArea";
 
-import 'react-json-view-lite/dist/index.css';
-
 export const ResponseArea = ({ responseHistoryState, selectedRequestState, 
     waitingState, waitingMessageState, 
     displayAreaRefState, 
-    DisplaySuspenseComponent, 
-    disabledState, 
-    cssURL = './css/ResponseArea/ResponseArea.css'
+    disabledState
   } : 
   { responseHistoryState: Signal<ResponseHistory<any>>, selectedRequestState: Signal<string>,
     waitingState: Signal<boolean>, waitingMessageState: Signal<string>, 
-    displayAreaRefState: Signal<HTMLDivElement|null>, DisplaySuspenseComponent: React.ComponentType
-    disabledState?: Signal<any>, cssURL?: string
+    displayAreaRefState: Signal<HTMLDivElement|null>, disabledState?: Signal<any>
   }) => {
 
   const selectedRequestInfo = responseHistoryState.value[selectedRequestState.value];
@@ -42,16 +37,12 @@ export const ResponseArea = ({ responseHistoryState, selectedRequestState,
     ? <ResponseDisplay
         waitingInfo = { waitingInfo }
         requestErrorInfo={ error }
-        displayAreaRefState={ displayAreaRefState } 
-        DisplaySuspenseComponent={ DisplaySuspenseComponent }
-        cssURL={ cssURL }
+        displayAreaRefState={ displayAreaRefState }
       />  
     : <ResponseDisplay
         data={ data }
         waitingInfo = { waitingInfo }
         displayAreaRefState={ displayAreaRefState }
-        DisplaySuspenseComponent={ DisplaySuspenseComponent }
-        cssURL={ cssURL }
       /> 
   );
 }
