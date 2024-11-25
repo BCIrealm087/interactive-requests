@@ -1,4 +1,5 @@
 const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   entry: './index.ts',
@@ -11,6 +12,11 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: "./tsconfig.json",
+      }),
+    ],
   },
   module: {
     rules: [
@@ -37,6 +43,12 @@ module.exports = {
       commonjs2: 'react-dom',
       amd: 'ReactDOM',
       root: 'ReactDOM',
+    },
+    '@preact/signals-react' : {
+      commonjs: '@preact/signals-react',
+      commonjs2: '@preact/signals-react',
+      amd: '@preact/signals-react',
+      root: '@preact/signals-react',
     },
   },
 };

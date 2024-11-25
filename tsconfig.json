@@ -1,7 +1,13 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "useDefineForClassFields": true,
+    "useDefineForClassFields": true, 
+    "paths": {
+      "@controllers": ["./src/controllers"], 
+      "@controllers/*": ["./src/controllers/*"], 
+      "@providers": ["./src/providers"], 
+      "@providers/*": ["./src/providers/*"]
+    }, 
     "lib": ["ES2019", "DOM"],
     "declaration": true,
     "outDir": "./dist",
